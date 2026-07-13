@@ -4,67 +4,101 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Render အတွက် Web Server
 app.get('/', (req, res) => {
-  res.send('Bote EE Snack Shop Bot is running');
+  res.send('Bote EE Snack Shop is Online 🟢');
 });
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-// Telegram Bot
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-// Start Menu
+
+// Start
 bot.start((ctx) => {
   ctx.reply(
-    `မင်္ဂလာပါ 👋
+`🌶️ Bote EE Snack Shop မှ ကြိုဆိုပါတယ်ရှင့် 👋
 
-Bote EE Snack Shop မှ ကြိုဆိုပါတယ်ရှင့်
+😋 အရသာရှိတဲ့ Snack မျိုးစုံကို
+လွယ်ကူမြန်ဆန်စွာ မှာယူနိုင်ပါပြီ။
 
-Menu လေးတွေ သေချာကြည့်ပြီး အေးအေးဆေးဆေး ရွေးချယ်မှာယူပေးပါ
+🔥 အရသာကောင်း
+✨ သန့်ရှင်းလတ်ဆတ်
+📦 အဆင်ပြေတဲ့ ပို့ဆောင်မှု
 
-ပို့ဆောင်မည့်အချိန် - 12 နာရီ၊ 3 နာရီ၊ 6 နာရီ`,
+ကြိုက်နှစ်သက်ရာ Menu ကိုရွေးပြီး
+အခုပဲ မှာယူလိုက်ပါနော် ❤️
+
+👇 အောက်က Menu ကိုရွေးပါ`,
     Markup.keyboard([
-      ['🍟 မုန့်အမျိုးအစားရွေးရန်'],
-      ['📞 Admin နှင့်ဆက်သွယ်ရန်']
-    ])
-    .resize()
+      ['🍿 Snack Menu ကြည့်မယ်'],
+      ['🛒 မှာယူမယ်'],
+      ['📞 Admin နှင့် ဆက်သွယ်ရန်']
+    ]).resize()
   );
 });
 
-// Menu Button
-bot.hears('🍟 မုန့်အမျိုးအစားရွေးရန်', (ctx) => {
+
+// Menu
+bot.hears('🍿 Snack Menu ကြည့်မယ်', (ctx) => {
   ctx.reply(
-    'ဘယ်လိုအမျိုးအစားလိုချင်ပါသလဲ\n\nအောက်တွင်ရွေးချယ်ပေးပါ',
+`🍿 Bote EE Snack Menu
+
+1️⃣ BBQ Flavor
+2️⃣ Spicy Flavor 🌶️
+3️⃣ Original Flavor 😋
+
+မှာယူလိုတဲ့ Menu ကိုရွေးပါ`,
     Markup.keyboard([
-      ['🥔 အာလူးကြော်'],
-      ['🥤 အချိုရည်'],
-      ['🔙 Back']
-    ])
-    .resize()
+      ['🔥 BBQ Flavor'],
+      ['🌶️ Spicy Flavor'],
+      ['🔙 ပင်မ Menu']
+    ]).resize()
   );
 });
 
-// Admin Button
-bot.hears('📞 Admin နှင့်ဆက်သွယ်ရန်', (ctx) => {
-  ctx.reply('Admin နှင့် ဆက်သွယ်ရန် - @YourAdminUsername');
+
+// Order
+bot.hears('🛒 မှာယူမယ်', (ctx) => {
+  ctx.reply(
+`🛒 မှာယူရန်
+
+လိုချင်တဲ့ Snack အမျိုးအစားနဲ့
+အရေအတွက်ကို ရေးပို့ပေးပါနော်။
+
+ဥပမာ -
+BBQ Flavor x 2 ထုပ်`
+  );
 });
+
+
+// Admin
+bot.hears('📞 Admin နှင့် ဆက်သွယ်ရန်', (ctx) => {
+  ctx.reply(
+`📞 Customer Service
+
+မှာယူမှု၊ ဈေးနှုန်းနဲ့ Delivery အတွက်
+Admin ကို ဆက်သွယ်နိုင်ပါတယ်။
+
+@YourAdminUsername`
+  );
+});
+
 
 // Back
-bot.hears('🔙 Back', (ctx) => {
+bot.hears('🔙 ပင်မ Menu', (ctx) => {
   ctx.reply(
-    'Menu ပြန်ရွေးပါ',
+    'Menu ပြန်ရွေးပါ 👇',
     Markup.keyboard([
-      ['🍟 မုန့်အမျိုးအစားရွေးရန်'],
-      ['📞 Admin နှင့်ဆက်သွယ်ရန်']
-    ])
-    .resize()
+      ['🍿 Snack Menu ကြည့်မယ်'],
+      ['🛒 မှာယူမယ်'],
+      ['📞 Admin နှင့် ဆက်သွယ်ရန်']
+    ]).resize()
   );
 });
 
-// Bot စတင်
+
 bot.launch();
 
-console.log('Bot is running...');
+console.log('Bote EE Snack Bot Running...');
