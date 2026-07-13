@@ -1,9 +1,6 @@
 const { Telegraf, Markup } = require('telegraf');
 const express = require('express');
 
-const { Telegraf, Markup } = require('telegraf');
-const express = require('express');
-
 const app = express();
 const port = process.env.PORT || 3000;
 
