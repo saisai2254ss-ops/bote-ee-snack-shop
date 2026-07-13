@@ -1,18 +1,34 @@
 const { Telegraf, Markup } = require('telegraf');
 const express = require('express');
 
+const { Telegraf, Markup } = require('telegraf');
+const express = require('express');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Render health check
 app.get('/', (req, res) => {
-  res.send('Bote EE Snack Shop is Online 🟢');
+  res.send('Bote EE Snack Shop Bot is running 🟢');
 });
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
+
+// Telegram Bot
 const bot = new Telegraf(process.env.BOT_TOKEN);
+
+
+// Main Menu Function
+function mainMenu() {
+  return Markup.keyboard([
+    ['🍿 Snack Menu ကြည့်မယ်'],
+    ['🛒 မှာယူမယ်'],
+    ['📞 Admin နှင့် ဆက်သွယ်ရန်']
+  ]).resize();
+}
 
 
 // Start
@@ -25,34 +41,68 @@ bot.start((ctx) => {
 
 🔥 အရသာကောင်း
 ✨ သန့်ရှင်းလတ်ဆတ်
-📦 အဆင်ပြေတဲ့ ပို့ဆောင်မှု
+📦 အဆင်ပြေတဲ့ Delivery
 
 ကြိုက်နှစ်သက်ရာ Menu ကိုရွေးပြီး
-အခုပဲ မှာယူလိုက်ပါနော် ❤️
+အခုပဲ မှာယူလိုက်ပါနော် ❤️`,
+    mainMenu()
+  );
+});
 
-👇 အောက်က Menu ကိုရွေးပါ`,
+
+// Snack Menu
+bot.hears(/Snack Menu/, (ctx) => {
+  ctx.reply(
+`🍿 Bote EE Snack Menu
+
+🌶️ BBQ Flavor
+💰 1 ထုပ် - 1,000 MMK
+
+🔥 Spicy Flavor
+💰 1 ထုပ် - 1,000 MMK
+
+ကြိုက်တဲ့အရသာကို ရွေးပါ 👇`,
     Markup.keyboard([
-      ['🍿 Snack Menu ကြည့်မယ်'],
-      ['🛒 မှာယူမယ်'],
-      ['📞 Admin နှင့် ဆက်သွယ်ရန်']
+      ['🌶️ BBQ Flavor'],
+      ['🔥 Spicy Flavor'],
+      ['🔙 ပင်မ Menu']
     ]).resize()
   );
 });
 
 
-// Menu
-bot.hears('🍿 Snack Menu ကြည့်မယ်', (ctx) => {
+// BBQ
+bot.hears(/BBQ Flavor/, (ctx) => {
   ctx.reply(
-`🍿 Bote EE Snack Menu
+`🌶️ BBQ Flavor
 
-1️⃣ BBQ Flavor
-2️⃣ Spicy Flavor 🌶️
-3️⃣ Original Flavor 😋
+😋 အရသာကောင်းပြီး လူကြိုက်များတဲ့ Snack ပါ။
 
-မှာယူလိုတဲ့ Menu ကိုရွေးပါ`,
+💰 ဈေးနှုန်း
+1 ထုပ် - 1,000 MMK
+
+မှာယူချင်ရင် အောက်က Button ကိုနှိပ်ပါ 👇`,
     Markup.keyboard([
-      ['🔥 BBQ Flavor'],
-      ['🌶️ Spicy Flavor'],
+      ['🛒 ဝယ်ယူမယ်'],
+      ['🔙 ပင်မ Menu']
+    ]).resize()
+  );
+});
+
+
+// Spicy
+bot.hears(/Spicy Flavor/, (ctx) => {
+  ctx.reply(
+`🔥 Spicy Flavor
+
+🌶️ စပ်စပ်လေး ကြိုက်သူတွေအတွက် အထူးသင့်တော်ပါတယ်။
+
+💰 ဈေးနှုန်း
+1 ထုပ် - 1,000 MMK
+
+မှာယူချင်ရင် အောက်က Button ကိုနှိပ်ပါ 👇`,
+    Markup.keyboard([
+      ['🛒 ဝယ်ယူမယ်'],
       ['🔙 ပင်မ Menu']
     ]).resize()
   );
@@ -60,21 +110,22 @@ bot.hears('🍿 Snack Menu ကြည့်မယ်', (ctx) => {
 
 
 // Order
-bot.hears('🛒 မှာယူမယ်', (ctx) => {
+bot.hears(/ဝယ်ယူမယ်|မှာယူမယ်/, (ctx) => {
   ctx.reply(
 `🛒 မှာယူရန်
 
 လိုချင်တဲ့ Snack အမျိုးအစားနဲ့
 အရေအတွက်ကို ရေးပို့ပေးပါနော်။
 
-ဥပမာ -
-BBQ Flavor x 2 ထုပ်`
+ဥပမာ 👇
+
+🌶️ BBQ Flavor x 2 ထုပ်`
   );
 });
 
 
 // Admin
-bot.hears('📞 Admin နှင့် ဆက်သွယ်ရန်', (ctx) => {
+bot.hears(/Admin/, (ctx) => {
   ctx.reply(
 `📞 Customer Service
 
@@ -87,18 +138,15 @@ Admin ကို ဆက်သွယ်နိုင်ပါတယ်။
 
 
 // Back
-bot.hears('🔙 ပင်မ Menu', (ctx) => {
+bot.hears(/ပင်မ Menu/, (ctx) => {
   ctx.reply(
-    'Menu ပြန်ရွေးပါ 👇',
-    Markup.keyboard([
-      ['🍿 Snack Menu ကြည့်မယ်'],
-      ['🛒 မှာယူမယ်'],
-      ['📞 Admin နှင့် ဆက်သွယ်ရန်']
-    ]).resize()
+    '🏠 Main Menu',
+    mainMenu()
   );
 });
 
 
+// Launch
 bot.launch();
 
-console.log('Bote EE Snack Bot Running...');
+console.log('Bote EE Snack Bot Running 🚀');
