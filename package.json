@@ -1,12 +1,13 @@
 {
   "name": "bote-ee-snack-shop",
   "version": "1.0.0",
-  "description": "Telegram snack shop bot",
+  "description": "Bote EE Snack Shop Telegram Bot",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
+    "express": "^4.19.2",
     "telegraf": "^4.16.3"
   }
 }
