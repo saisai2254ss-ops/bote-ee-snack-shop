@@ -22,7 +22,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 function mainMenu() {
   return Markup.keyboard([
     ['🍿 Snack Menu ကြည့်မယ်'],
-    ['🛒 မှာယူမယ်'],
+    ['🛒 စျေးဝယ်အိတ်'],
     ['📞 Admin နှင့် ဆက်သွယ်ရန်']
   ]).resize();
 }
