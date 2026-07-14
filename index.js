@@ -71,6 +71,10 @@ bot.hears(/Snack Menu/, (ctx) => {
 
 // BBQ
 bot.hears(/အာလူးကြော် အချို/, (ctx) => {
+  const userId = ctx.from.id;
+
+  waitingForQty[userId] = true;
+  
   ctx.reply(
 `🍟 အာလူးကြော် အချို
 
