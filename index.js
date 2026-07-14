@@ -156,6 +156,32 @@ Admin ကို ဆက်သွယ်နိုင်ပါတယ်။
   );
 });
 
+bot.hears('🛒 စျေးဝယ်အိတ်', (ctx) => {
+
+  const userId = ctx.from.id;
+
+  if (!cart[userId] || cart[userId].length === 0) {
+    return ctx.reply('🛒 စျေးဝယ်အိတ်ထဲမှာ ပစ္စည်းမရှိသေးပါ။');
+  }
+
+  let text = '🛒 သင့်စျေးဝယ်အိတ်\n\n';
+  let total = 0;
+
+  cart[userId].forEach(item => {
+
+    const sum = item.price * item.qty;
+    total += sum;
+
+    text += `${item.name} x ${item.qty}\n`;
+    text += `💰 ${sum.toLocaleString()} MMK\n\n`;
+
+  });
+
+  text += `စုစုပေါင်း 💰 ${total.toLocaleString()} MMK`;
+
+  ctx.reply(text);
+
+});
 
 // Back
 bot.hears(/ပင်မ Menu/, (ctx) => {
