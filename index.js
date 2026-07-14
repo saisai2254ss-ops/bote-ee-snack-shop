@@ -1,6 +1,7 @@
 const { Telegraf, Markup } = require('telegraf');
 const express = require('express');
 let cart = {};
+let waitingForQty = {};
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -78,9 +79,8 @@ bot.hears(/အာလူးကြော် အချို/, (ctx) => {
 💰 ဈေးနှုန်း
 1 ထုပ် - 1,000 MMK
 
-မှာယူချင်ရင် အောက်က Button ကိုနှိပ်ပါ 👇`,
+မှာယူချင်ရင် အောက်မှ အရေအတွက်ကို ရေးပါ 👇`,
     Markup.keyboard([
-      ['🛒အိတ်ထဲထည့်မယ်'],
       ['🔙 ပင်မ Menu']
     ]).resize()
   );
@@ -161,6 +161,39 @@ bot.hears(/ပင်မ Menu/, (ctx) => {
   );
 });
 
+bot.on('text', (ctx) => {
+
+  const userId = ctx.from.id;
+
+  if (waitingForQty[userId]) {
+
+    const qty = Number(ctx.message.text);
+
+    if (isNaN(qty) || qty <= 0) {
+      return ctx.reply('❌ Qty ကို ဂဏန်းနဲ့ ရေးပေးပါနော်။');
+    }
+
+    cart[userId] = cart[userId] || [];
+
+    cart[userId].push({
+      name: '🍟 အာလူးကြော် အချို',
+      price: 1000,
+      qty: qty
+    });
+
+    waitingForQty[userId] = false;
+
+    ctx.reply(
+`✅ Cart ထဲထည့်ပြီးပါပြီ
+
+🍟 အာလူးကြော် အချို x ${qty}
+
+🛒 စျေးဝယ်အိတ်မှာ ကြည့်နိုင်ပါတယ်။`
+    );
+
+  }
+
+});
 
 // Launch
 bot.launch();
