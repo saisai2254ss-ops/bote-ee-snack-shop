@@ -52,16 +52,16 @@ bot.hears(/Snack Menu/, (ctx) => {
   ctx.reply(
 `🍿 Bote EE Snack Menu
 
-🌶️ BBQ Flavor
+🍟 အာလူးကြော် အချို
 💰 1 ထုပ် - 1,000 MMK
 
-🔥 Spicy Flavor
-💰 1 ထုပ် - 1,000 MMK
+🔥 အာလူးကြော် အစပ်
+💰 1 ထုပ် - 1,500 MMK
 
 ကြိုက်တဲ့အရသာကို ရွေးပါ 👇`,
     Markup.keyboard([
-      ['🌶️ BBQ Flavor'],
-      ['🔥 Spicy Flavor'],
+      ['🍟 အာလူးကြော် အချို'],
+      ['🔥 အာလူးကြော် အစပ်'],
       ['🔙 ပင်မ Menu']
     ]).resize()
   );
@@ -69,18 +69,18 @@ bot.hears(/Snack Menu/, (ctx) => {
 
 
 // BBQ
-bot.hears(/BBQ Flavor/, (ctx) => {
+bot.hears(/အာလူးကြော် အချို/, (ctx) => {
   ctx.reply(
-`🌶️ BBQ Flavor
+`🍟 အာလူးကြော် အချို
 
-😋 အရသာကောင်းပြီး လူကြိုက်များတဲ့ Snack ပါ။
+😋 အရသာကောင်းပြီး လူကြိုက်များတဲ့ အာလူးကြော်ပါ ပါ။
 
 💰 ဈေးနှုန်း
 1 ထုပ် - 1,000 MMK
 
 မှာယူချင်ရင် အောက်က Button ကိုနှိပ်ပါ 👇`,
     Markup.keyboard([
-      ['🛒 ဝယ်ယူမယ်'],
+      ['🛒အိတ်ထဲထည့်မယ်'],
       ['🔙 ပင်မ Menu']
     ]).resize()
   );
@@ -88,18 +88,18 @@ bot.hears(/BBQ Flavor/, (ctx) => {
 
 
 // Spicy
-bot.hears(/Spicy Flavor/, (ctx) => {
+bot.hears(/အာလူးကြော် အစပ်/, (ctx) => {
   ctx.reply(
-`🔥 Spicy Flavor
+`🔥 အာလူးကြော် အစပ်
 
 🌶️ စပ်စပ်လေး ကြိုက်သူတွေအတွက် အထူးသင့်တော်ပါတယ်။
 
 💰 ဈေးနှုန်း
-1 ထုပ် - 1,000 MMK
+1 ထုပ် - 1,500 MMK
 
 မှာယူချင်ရင် အောက်က Button ကိုနှိပ်ပါ 👇`,
     Markup.keyboard([
-      ['🛒 ဝယ်ယူမယ်'],
+      ['🛒 အိတ်ထဲထည့်မယ်'],
       ['🔙 ပင်မ Menu']
     ]).resize()
   );
