@@ -1,6 +1,6 @@
 const { Telegraf, Markup } = require('telegraf');
 const express = require('express');
-
+let cart = {};
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -107,13 +107,25 @@ bot.hears(/အာလူးကြော် အစပ်/, (ctx) => {
 
 
 // Order
-bot.hears(/အိတ်ထဲထည့်မယ်/, (ctx) => {
-  ctx.reply(
-`✅ အိတ်ထဲထည့်ပြီးပါပြီ
+bot.hears('🛒 အိတ်ထဲထည့်မယ်', (ctx) => {
 
-🛒 စျေးဝယ်အိတ် ကိုဝင်ကြည့်နိုင်ပါတယ်
-အခြားအရသာရှိသော မုန့်များလဲရွေးရှယ်နိုင်ပါတယ်`
+  const userId = ctx.from.id;
+
+  cart[userId] = cart[userId] || [];
+
+  cart[userId].push({
+    name: '🍟 အာလူးကြော် အချို',
+    price: 1000
+  });
+
+  ctx.reply(
+`✅ အိတ်ထဲ ထည့်ပြီးပါပြီ။
+
+🛒 စျေးဝယ်အိတ်ကို ဝင်ကြည့်နိုင်ပါတယ်။
+
+အခြားအရသာရှိသော မုန့်များလည်း ရွေးချယ်နိုင်ပါတယ်။`
   );
+
 });
 
 // Shopping Bag
